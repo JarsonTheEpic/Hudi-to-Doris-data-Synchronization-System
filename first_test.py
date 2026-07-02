@@ -29,6 +29,7 @@ try:
         print("Full sync completed successfully")
 
         print(dir(pymysql))
+        # abc test
 
 finally: # If connection fails
     connection.close()
