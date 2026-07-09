@@ -1,16 +1,25 @@
 import pymysql
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--mode", default="full")
+parser.add_argument("--table", required=True)
+args = parser.parse_args()
 
 connection = pymysql.connect(
-    host = "192.168.30.129",
+    host = "10.25.84.152",
     port = 9030,
-    user = "root",
-    password = "",
-    db = "test_database"
+    user = "jason1",
+    password = "sunshina01",
+    db = "sandbox",
 )
 
-source_db = "test_database"
-target_db = "backup_database"
-table = "students"
+source_db = "sandbox"
+target_db = "sandbox"
+table = "dim_gg_cgsjmx_cxsjzd"
+
+print(f"mode={args.mode}, table={args.table}")
 
 try:
     with connection.cursor() as cursor:
