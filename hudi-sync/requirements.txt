@@ -1,0 +1,17 @@
+# ============================================================================
+# Python Dependencies for Hudi to Doris Sync Service
+# ============================================================================
+# Author: jason
+# Date: 2026-07-20
+#
+# Installation:
+#   pip install -r requirements.txt
+#
+# Why these dependencies?
+# ----------------------------------------------------------------------------
+# pymysql       - MySQL protocol driver for connecting to Doris (Doris uses MySQL protocol)
+# python-dotenv - Load environment variables from .env file for configuration management
+# ============================================================================
+
+pymysql>=1.0.2,<2.0.0
+python-dotenv>=1.0.0,<2.0.0

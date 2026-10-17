@@ -1,0 +1,195 @@
+2026-07-21 01:11:44 - __main__ - INFO - ======================================================================
+2026-07-21 01:11:44 - __main__ - INFO - Starting sync for project: proj0111
+2026-07-21 01:11:44 - __main__ - INFO - Sync mode: using table configuration
+2026-07-21 01:11:44 - __main__ - INFO - ======================================================================
+2026-07-21 01:11:44 - __main__ - INFO - Running environment pre-checks...
+2026-07-21 01:11:44 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:11:44 - core.pre_checker - INFO - Starting environment pre-checks
+2026-07-21 01:11:44 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:11:44 - core.pre_checker - INFO - Checking Doris connection...
+2026-07-21 01:11:44 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:11:44 - core.pre_checker - INFO - Doris connection OK
+2026-07-21 01:11:44 - core.pre_checker - INFO - Checking project existence: proj0111
+2026-07-21 01:11:45 - __main__ - ERROR - Pre-check failed: Project not found: proj0111
+2026-07-21 01:12:10 - __main__ - INFO - ======================================================================
+2026-07-21 01:12:10 - __main__ - INFO - Starting sync for project: proj01
+2026-07-21 01:12:10 - __main__ - INFO - Sync mode: using table configuration
+2026-07-21 01:12:10 - __main__ - INFO - ======================================================================
+2026-07-21 01:12:10 - __main__ - INFO - Running environment pre-checks...
+2026-07-21 01:12:10 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:12:10 - core.pre_checker - INFO - Starting environment pre-checks
+2026-07-21 01:12:10 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:12:10 - core.pre_checker - INFO - Checking Doris connection...
+2026-07-21 01:12:10 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:12:10 - core.pre_checker - INFO - Doris connection OK
+2026-07-21 01:12:10 - core.pre_checker - INFO - Checking project existence: proj01
+2026-07-21 01:12:10 - core.pre_checker - INFO - Project found: proj01, status=None
+2026-07-21 01:12:10 - core.pre_checker - INFO - Checking table configurations for project: proj01
+2026-07-21 01:12:10 - core.pre_checker - INFO - Found 2 active table configurations
+2026-07-21 01:12:10 - core.pre_checker - INFO - Checking for stuck jobs for project: proj01
+2026-07-21 01:12:11 - core.pre_checker - INFO - No running jobs found for this project
+2026-07-21 01:12:11 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:12:11 - core.pre_checker - INFO - All pre-checks passed!
+2026-07-21 01:12:11 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:12:11 - __main__ - INFO - Job ID generated: 20260721011211089
+2026-07-21 01:12:11 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:12:11 - core.connector.doris_client - ERROR - SQL execution failed: 
+            INSERT INTO sync_job_log (
+                job_id,
+                project_code,
+                sync_mode,
+                trigger_type,
+                start_time,
+                statu... Error: (1105, "errCode = 2, detailMessage = Unknown column 'sync_mode' in target table.")
+2026-07-21 01:12:11 - __main__ - ERROR - Failed to log job start: Failed to log job start: (1105, "errCode = 2, detailMessage = Unknown column 'sync_mode' in target table.")
+Traceback (most recent call last):
+  File "C:\pydoris\hudi-sync\core\worker\logger.py", line 93, in log_job_start
+    self.client.execute(sql)
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\pydoris\hudi-sync\core\connector\doris_client.py", line 163, in execute
+    affected = cursor.execute(sql)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\cursors.py", line 157, in execute
+    result = self._query(query)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\connections.py", line 575, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\connections.py", line 826, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\connections.py", line 1203, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\connections.py", line 782, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1105, "errCode = 2, detailMessage = Unknown column 'sync_mode' in target table.")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\pydoris\hudi-sync\bin\sync_project.py", line 163, in main
+    logger_manager.log_job_start(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        job_id=job_id,
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        created_by='system'
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\pydoris\hudi-sync\core\worker\logger.py", line 96, in log_job_start
+    raise CheckpointException(f'Failed to log job start: {e}')
+common.exceptions.CheckpointException: Failed to log job start: (1105, "errCode = 2, detailMessage = Unknown column 'sync_mode' in target table.")
+2026-07-21 01:16:20 - __main__ - INFO - ======================================================================
+2026-07-21 01:16:20 - __main__ - INFO - Starting sync for project: proj01
+2026-07-21 01:16:20 - __main__ - INFO - Sync mode: using table configuration
+2026-07-21 01:16:20 - __main__ - INFO - ======================================================================
+2026-07-21 01:16:20 - __main__ - INFO - Running environment pre-checks...
+2026-07-21 01:16:20 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:16:20 - core.pre_checker - INFO - Starting environment pre-checks
+2026-07-21 01:16:20 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:16:20 - core.pre_checker - INFO - Checking Doris connection...
+2026-07-21 01:16:21 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:16:21 - core.pre_checker - INFO - Doris connection OK
+2026-07-21 01:16:21 - core.pre_checker - INFO - Checking project existence: proj01
+2026-07-21 01:16:21 - core.pre_checker - INFO - Project found: proj01, status=None
+2026-07-21 01:16:21 - core.pre_checker - INFO - Checking table configurations for project: proj01
+2026-07-21 01:16:21 - core.pre_checker - INFO - Found 2 active table configurations
+2026-07-21 01:16:21 - core.pre_checker - INFO - Checking for stuck jobs for project: proj01
+2026-07-21 01:16:21 - core.pre_checker - INFO - No running jobs found for this project
+2026-07-21 01:16:21 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:16:21 - core.pre_checker - INFO - All pre-checks passed!
+2026-07-21 01:16:21 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:16:21 - __main__ - INFO - Job ID generated: 20260721011621543
+2026-07-21 01:16:21 - __main__ - ERROR - Failed to log job start: LoggerManager.log_job_start() got an unexpected keyword argument 'sync_mode'. Did you mean 'sync_type'?
+Traceback (most recent call last):
+  File "C:\pydoris\hudi-sync\bin\sync_project.py", line 163, in main
+    logger_manager.log_job_start(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        job_id=job_id,
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        created_by='system'
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: LoggerManager.log_job_start() got an unexpected keyword argument 'sync_mode'. Did you mean 'sync_type'?
+2026-07-21 01:17:22 - __main__ - INFO - ======================================================================
+2026-07-21 01:17:22 - __main__ - INFO - Starting sync for project: proj01
+2026-07-21 01:17:22 - __main__ - INFO - Sync mode: using table configuration
+2026-07-21 01:17:22 - __main__ - INFO - ======================================================================
+2026-07-21 01:17:22 - __main__ - INFO - Running environment pre-checks...
+2026-07-21 01:17:22 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:17:22 - core.pre_checker - INFO - Starting environment pre-checks
+2026-07-21 01:17:22 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:17:22 - core.pre_checker - INFO - Checking Doris connection...
+2026-07-21 01:17:22 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:22 - core.pre_checker - INFO - Doris connection OK
+2026-07-21 01:17:22 - core.pre_checker - INFO - Checking project existence: proj01
+2026-07-21 01:17:23 - core.pre_checker - INFO - Project found: proj01, status=None
+2026-07-21 01:17:23 - core.pre_checker - INFO - Checking table configurations for project: proj01
+2026-07-21 01:17:23 - core.pre_checker - INFO - Found 2 active table configurations
+2026-07-21 01:17:23 - core.pre_checker - INFO - Checking for stuck jobs for project: proj01
+2026-07-21 01:17:23 - core.pre_checker - INFO - No running jobs found for this project
+2026-07-21 01:17:23 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:17:23 - core.pre_checker - INFO - All pre-checks passed!
+2026-07-21 01:17:23 - core.pre_checker - INFO - ============================================================
+2026-07-21 01:17:23 - __main__ - INFO - Job ID generated: 20260721011723179
+2026-07-21 01:17:23 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:23 - core.worker.logger - INFO - Job log started: job_id=20260721011723179, project=proj01
+2026-07-21 01:17:23 - __main__ - INFO - Job start logged: 20260721011723179
+2026-07-21 01:17:23 - core.worker.project_worker - INFO - ProjectWorker started: project=proj01, job=20260721011723179
+2026-07-21 01:17:23 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:23 - core.worker.project_worker - INFO - Found 2 active tables for project proj01
+2026-07-21 01:17:23 - core.worker.project_worker - INFO - Starting sync for table: dim.dim_gg_jdzsj_zsjjd, mode=full
+2026-07-21 01:17:23 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:23 - core.worker.project_worker - INFO - Validating schema for dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:24 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:24 - core.worker.project_worker - INFO - Validating primary key for dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:24 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:24 - core.validator.primary_key_validator - INFO - Primary keys match: {'cn_warehouse_id'}
+2026-07-21 01:17:24 - core.worker.project_worker - INFO - Estimating data volume for dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:24 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:25 - core.worker.project_worker - INFO - Estimated rows: 7690
+2026-07-21 01:17:25 - core.worker.project_worker - INFO - Executing sync for dim.dim_gg_jdzsj_zsjjd, mode=full
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Validating schema for dim_gg_jdzsj_zsjjd -> dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:25 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Getting business columns from Hudi table: dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:25 - core.connector.doris_client - INFO - Connected to Doris: 10.25.48.58:9030/com
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Business columns (160): cn_warehouse_id, cn_warehouse_code, cn_warehouse_name, cn_extension_name, cn_short_name, cn_lgort_code, cn_credit_code, cn_region_code, cn_region_name, cn_biz_dept_code, cn_biz_dept_name, cn_sfjdjh, cn_sfjdjh_name, cn_country, cn_country_name, cn_province, cn_province_name, cn_city, cn_city_name, cn_county, cn_county_name, cn_detail_address, cn_longitude, cn_latitude, cn_status, cn_status_name, cn_createdbyname, cn_createdbyorgname, cd_createdtime, cn_submittedbyorgname, cn_lastupdatedbyname, cd_lastupdatedtime, cn_logistics_type, cn_logistics_type_name, cn_logistics_attr, cn_logistics_attr_name, cn_port_area_code, cn_port_area, cn_railway_station_name, cn_railway_bureau_code, cn_railway_bureau, cn_cont_20ft_ld_cap, cn_cont_20ft_ld_cap_unit, cn_cont_daily_cap, cn_cont_daily_cap_name, cn_cont_grad, cn_bulk_car_ld_cap, cn_bulk_car_ld_cap_unit, cn_bulk_hang_grad, cn_bulk_hang_grad_name, cn_bulk_cap, k_length_zyxz, cn_zyxz_unit, k_length_zyxyx, cn_zyxyx_unit, cn_kcar_darily_ld_cap, cn_kcar_darily_ld_cap_unit, cn_scat_grain_cap, cn_scat_grain_cap_name, cn_scat_grain, cn_opne_top_box35t_ld, cn_opne_top_box35t_ld_unit, cn_open_top_box_cap, cn_open_top_box_cap_name, cn_open_top_box_grain, cn_pack_grain_ld_cap, cn_pack_grain_ld_cap_unit, cn_pack_grain_cap, cn_pack_grain_cap_name, cn_pack_grain, cn_pack_grain_unld_cap, cn_pack_grain_unld_cap_unit, cn_has_reach_stacker, cn_has_reach_stacker_name, cn_has_hard_cont, cn_has_hard_cont_name, k_quantity_nmbw, k_quantity_wmbw, k_quantity_zbw, cn_dom_ship_ld_cap, cn_dom_ship_ld_cap_unit, cn_dom_ship_unld_cap, cn_dom_ship_unld_cap_unit, cn_for_ship_unld_cap, cn_for_ship_unld_cap_unit, cn_rail_con_stn_code, cn_rail_con_stn, cn_has_rail_spec, cn_has_rail_spec_name, cn_kcar_unld_cap, cn_kcar_unld_cap_unit, cn_opne_top_box35t_unld, cn_opne_top_box35t_unld_unit, cn_bulk_car_unld_cap, cn_bulk_car_unld_cap_unit, cn_rail_ld_box_cap, cn_rail_ld_box_cap_unit, k_quantity_jzxbw, cn_cont_ship_ld, cn_cont_ship_ld_unit, cn_cont_ship_unld, cn_cont_ship_unld_unit, cn_bulk_to_cont, cn_bulk_to_cont_unit, cn_cont_to_bulk, cn_cont_to_bulk_unit, cn_storage_type, cn_storage_type_name, cn_storage_nature, cn_storage_nature_name, cn_mian_warehouse_code, cn_mian_warehouse, cn_accounting_code, cn_accounting_name, cn_factory_code, cn_has_grain_store, cn_has_grain_store_name, k_quantity_cr, cn_cr_unit, k_quantity_zlkzrcr, cn_zlkzrcr_unit, k_quantity_zlcr, cn_zlcr_unit, k_quantity_yxcr, cn_yxcr_unit, cn_built_yera, cn_built_yera_unit, cn_warehouse_area, cn_warehouse_area_unit, k_quantity_pfcr, cn_pfcr_unit, k_quantity_ltccr, cn_ltccr_unit, k_quantity_qyccr, cn_qyccr_unit, k_quantity_jyclsscr, cn_store_attr, cn_store_attr_name, cn_dryer_cnt, cn_dryer_cnt_unit, cn_daily_dry_cap, cn_daily_dry_cap_unit, k_quantity_ddt, cn_daily_soybean_cap, cn_daily_soybean_cap_unit, k_quantity_dgjgsbs, cn_feed_rice_cap, cn_feed_rice_cap_unit, cn_main_biz_prod, cn_main_biz_prod_name, cn_grain_comp_code, cn_exit, cn_extension_type, cn_extension_type_name, cn_grain_ap_bus_class, cn_grain_ap_bus_class_name, cn_grain_ap_type, cn_grain_ap_type_name, cn_storage_name, last_update_time
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Deleting all data from target: internal.dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Target table cleared: internal.dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:25 - core.engine.full_sync - INFO - Inserting data from hudi_catalog.zlmy_dim_prd.dim_gg_jdzsj_zsjjd to internal.dim.dim_gg_jdzsj_zsjjd
+2026-07-21 01:17:26 - core.engine.full_sync - INFO - Full sync completed: 7690 rows inserted
+2026-07-21 01:17:26 - core.worker.project_worker - INFO - Sync completed successfully for dim.dim_gg_jdzsj_zsjjd, rows=7690
+2026-07-21 01:17:26 - core.worker.project_worker - INFO - Table result: dim.dim_gg_jdzsj_zsjjd status=success, rows=7690
+2026-07-21 01:17:26 - core.worker.project_worker - INFO - Starting sync for table: dim.dim_gg_jdzsj_zsjybsx, mode=full
+2026-07-21 01:17:26 - core.worker.project_worker - INFO - Validating schema for dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:26 - core.worker.project_worker - INFO - Validating primary key for dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.validator.primary_key_validator - INFO - Primary keys match: {'id'}
+2026-07-21 01:17:27 - core.worker.project_worker - INFO - Estimating data volume for dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.worker.project_worker - INFO - Estimated rows: 11518
+2026-07-21 01:17:27 - core.worker.project_worker - INFO - Executing sync for dim.dim_gg_jdzsj_zsjybsx, mode=full
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Validating schema for dim_gg_jdzsj_zsjybsx -> dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Getting business columns from Hudi table: dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Business columns (51): id, mdmserialno, sampletype, cn_sampletype_name, sampletype_cate, cn_sampletype_cate_name, samplingcategory, cn_samplingcategory_name, modifytype, code, samplecode, samplename, sampleabbr, sampletype_cate_at, cn_sampletype_cate_at_name, samplingcategory_at, cn_samplingcategory_at_name, annual_proc_cap, dry_grain_moist, group_name, stor_cap, annual_sales_vol, trader_type, cn_trader_type_name, daily_dry_cap, reserve_entity, cn_reserve_entity_name, daily_proc_cap, core_product, cn_core_product_name, protein_content, core_variety, cn_core_variety_name, annual_feed_cons_cap, sub_variety, cn_sub_variety_name, coop_group, coop_factory, samplemanager_at, cn_samplemanager_at_name, samplemanager_at_ad, samtempfiller_at_ad, status_at, cn_status_name, createdbyname, createdbyorgname, createdtime, submittedbyorgname, lastupdatedbyname, lastupdatedtime, last_update_time
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Deleting all data from target: internal.dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Target table cleared: internal.dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:27 - core.engine.full_sync - INFO - Inserting data from hudi_catalog.zlmy_dim_prd.dim_gg_jdzsj_zsjybsx to internal.dim.dim_gg_jdzsj_zsjybsx
+2026-07-21 01:17:28 - core.engine.full_sync - INFO - Full sync completed: 11518 rows inserted
+2026-07-21 01:17:28 - core.worker.project_worker - INFO - Sync completed successfully for dim.dim_gg_jdzsj_zsjybsx, rows=11518
+2026-07-21 01:17:28 - core.worker.project_worker - INFO - Table result: dim.dim_gg_jdzsj_zsjybsx status=success, rows=11518
+2026-07-21 01:17:28 - core.worker.project_worker - INFO - ProjectWorker completed: success=2, fail=0, skip=0
+2026-07-21 01:17:28 - core.worker.logger - INFO - Job log ended: job_id=20260721011723179, status=success
+2026-07-21 01:17:28 - __main__ - INFO - ======================================================================
+2026-07-21 01:17:28 - __main__ - INFO - Project sync completed: proj01
+2026-07-21 01:17:28 - __main__ - INFO - Status: success
+2026-07-21 01:17:28 - __main__ - INFO - Success: 2, Failed: 0, Skipped: 0
+2026-07-21 01:17:28 - __main__ - INFO - ======================================================================
