@@ -2,7 +2,7 @@
                 Hudi to Doris Sync Service - README
 =======================================================================
 
-1. Overview1
+1. Overview
 ================================================================================
 
 A lightweight Python service for synchronizing data from Hudi tables to Doris 
